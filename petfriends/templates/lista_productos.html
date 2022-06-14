@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Shop - Productos</title>
+  <link rel="icon" href="{% static 'img/logo.png' %}">
+    <!--Sweet alert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet"> 
+    <script src="{% static 'js/rutinas.js' %}"></script>
+    {% block js %}
+    <script>
+      function eliminarProducto(id){
+        
+        Swal.fire({
+          "title": "¿Estas seguro?",
+          "text": "Esta acción no se puede deshacer.",
+          "icon": "question",
+          "showCancelButton":true,
+          "cancelButtonText": "Cancelar",
+          "confirmButtonText":"Eliminar",
+          "reverseButtons":true,
+          "confirmButtonColor":"#dc3545"
+        })
+        .then(function(result){
+          if(result.isConfirmed){
+            window.location.href= "/eliminar_producto/"+id
+          }
+        })
+      }
+    </script>
+    {% endblock js %}
+    
+     
+</head>
+<body class="body3" onload="mueveReloj()">
+    {% load static %}
+
+    {% if messages %}
+    {% for m in messages %}
+      <script>
+          Swal.fire({
+            "title":"Felicitaciones",
+            "text": "{{m}}",
+            "icon": "success"
+          })
+      </script>
+    {% endfor %}
+  {% endif %}
+    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: green;">
+        <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#opciones">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- logo -->
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'img/logo.png' %}" width="40" height="40" alt="">
+        </a>
+        
+        <!-- enlaces -->
+        <div class="collapse navbar-collapse " id="opciones">   
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'index' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Inicio</h6></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'quienessomos' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Quiénes Somos</h6></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'galeria' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Galería</h6></a>         
+          </ul>
+         
+      
+        </div>
+      
+        <nav>
+          {% if user.is_authenticated %} 
+          <a href="#" style="font-size: 20px;">Bienvenid@ {{ user.username }}</a>
+          
+          <a href="{% url 'form_cliente' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Cliente</a>
+          <a href="{% url 'lista_clientes' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Clientes</a>
+          <a href="{% url 'form_producto' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Producto</a>
+          <a href="{% url 'lista_productos' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Productos</a>
+          <a href="{% url 'logout' %}" class="btn btn-danger btn-sm" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Cerrar Sesión</a>
+          {% else %}
+          <a href="{% url 'login' %}" class="nav-links">Login</a>
+          <a href="{% url 'registrarse' %}" class="nav-links">Registrarse</a>
+          {% endif %}
+          <a href="{% url 'carrito' %}"><span id="carrito" class="material-icons">&#xe8cc</span></a>
+        </nav>
+      
+      </div>
+      </nav>
+
+    <div class="container" style="max-width:1500px;margin-top:50px;margin-bottom:80px">
+
+        <div class="table-responsive">
+          <h1 style="text-align: center; color: white; text-shadow: 2px 2px red;">Productos</h1>
+        <table class="table table-bordered" style="color: white; background-color: rgb(114, 32, 82);">
+            <thead>
+                <tr>
+                    <th>Id Producto</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Imagen</th>
+                    <th>Opciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in productos %} <!--vehiculos que esta dentro de datos en views.py -->
+                <tr>
+                <td>{{i.idProducto}}</td>
+                <td>{{i.nombre}}</td>
+                <td>{{i.precio}}</td>
+                <td>{{i.stock}}</td>
+                {% if i.imagenPro %}
+                <td><img src="{{ i.imagenPro.url }}" width="200px" height="200px"></td>
+                {% endif %}
+                <td>
+                <a href="{% url 'mod_producto' i.idProducto %} " class="btn btn-info btn-sm">Modificar</a><br><br>
+                <a href="#" onclick="eliminarProducto({{i.idProducto}})" class="btn btn-danger btn-sm">Eliminar</a>
+              </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+
+<footer style="background: green; width: 100%; padding: 15px; text-align: center;">
+        <br><br>
+        <div class="grupo1">
+        <form name="form_reloj">
+            <input type="text" name="reloj" size="10" style="color: white ; background-color: green; text-align:center;">
+            </form>
+        <br>
+          <div class="container">
+            <a href="https://web.facebook.com/FundacionHuellaAnimalChile/?_rdc=1&_rdr" target="blank_" ><img src="{% static 'img/facebook.png' %}" style="max-width: 30px;"></i></a>
+            <a href="https://www.instagram.com/fundacionhuellaanimalchile/?hl=es" target="blank_"><img src="{% static 'img/instagram.png' %}" style="max-width: 30px;"></a>
+          </div>
+          <p style="font-family: 'Papyrus', cursive">Brian Urbina - Maximiliano Blamey</p>
+          <p style="font-family: 'Papyrus', cursive">@Copyrigth Derechos reservados.</p>
+        </div>
+</footer> 
+</body>
+</html>

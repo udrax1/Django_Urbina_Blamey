@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shop - Galería</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet"> 
+    <script src="{% static 'js/rutinas.js' %}"></script>
+    <script src="{% static 'js/dom.js' %}"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AX4SsYk7sWNbEBz-219t9-snEWyI0MzlNL6NfsARAC-LWnFahbzQq4sxsx2pqzvza5JxwIylehQjtFiq"></script>
+    <script>
+        paypal.Buttons({
+            style:{
+                color:'blue',
+                shape: 'pill',
+                label: 'pay',
+            },
+            createOrder: function(data,actions){
+                return actions.order.create({
+                    purchase_units: [{
+                        amount:{
+                            value: 12
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data,actions){
+                actions.order.capture().then(function(detalles){
+                    console.log(detalles);
+                    /* window.location.href="#"  
+                       al completar el pago redirecciona a alguna pág */
+                });
+            },     
+            onCancel: function(data){
+                alert("Pago cancelado");
+                console.log(data);
+            }
+        }).render('#paypal-button-container');
+    
+    </script>
+</head>
+<body class="body3" onload="mueveReloj()">
+    {% load static %}
+
+    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: green;">
+      <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#opciones">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- logo -->
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="{% static 'img/logo.png' %}" width="40" height="40" alt="">
+      </a>
+      
+      <!-- enlaces -->
+      <div class="collapse navbar-collapse " id="opciones">   
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'index' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Inicio</h6></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'quienessomos' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Quiénes Somos</h6></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'galeria' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Galería</h6></a>         
+        </ul>
+       
+    
+      </div>
+    
+      <nav>
+        {% if user.is_authenticated %} 
+        <a href="#" style="font-size: 20px;">Bienvenid@ {{ user.username }}</a>
+        
+        <a href="{% url 'form_cliente' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Cliente</a>
+        <a href="{% url 'lista_clientes' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Clientes</a>
+        <a href="{% url 'form_producto' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Producto</a>
+        <a href="{% url 'lista_productos' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Productos</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger btn-sm" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Cerrar Sesión</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="nav-links">Login</a>
+        <a href="{% url 'registrarse' %}" class="nav-links">Registrarse</a>
+        {% endif %}
+        <a href="{% url 'carrito' %}"><span id="carrito" class="material-icons">&#xe8cc</span></a>
+      </nav>
+    
+    </div>
+    </nav>
+
+
+      <!--contenido-->
+
+    <div class="container" style="max-width:1500px;margin-top:50px;margin-bottom:80px">
+    
+    <!----------------------------------------------------------------------------->
+<div class="summary" style="background-color: rgb(114, 32, 82); border: solid 15px green; width: 100%;">
+    <h2 style=" font-weight: 700 ;color: white;" >Resumen Compra</h2
+      ><div class="cart-summary">
+          <hr>
+          <div class="cart-summary-row cart-total">
+              <div class="label" style="color: white;">Total normal</div>
+              <div class="value" style="font-size: 40px; color: white;">$10.990</div></div>
+          </div>
+          <div id="paypal-button-container"></div>
+          <button type="button" class="btn btn-block btn-link" onclick="window.location.href= 'index.html'">Seguir comprando</button>
+          <div class="sticky-banner">
+                  <div class="price-container-total color: white;">Total<!-- --> 
+                      <strong  style="font-size: 20px; color: white;">$10.990<!-- --> </strong>
+                  </div>
+              </div>
+          </div>
+        </div>
+<br><br><br><br><br><br>
+
+    
+    </div>
+
+    <footer style="background: green; width: 100%; padding: 15px; text-align: center;">
+      <br><br>
+      <div class="grupo1">
+      <form name="form_reloj">
+          <input type="text" name="reloj" size="10" style="color: white ; background-color: green; text-align:center;">
+          </form>
+      <br>
+        <div class="container">
+          <a href="https://web.facebook.com/FundacionHuellaAnimalChile/?_rdc=1&_rdr" target="blank_" ><img src="{% static 'img/facebook.png' %}" style="max-width: 30px;"></i></a>
+          <a href="https://www.instagram.com/fundacionhuellaanimalchile/?hl=es" target="blank_"><img src="{% static 'img/instagram.png' %}" style="max-width: 30px;"></a>
+        </div>
+        <p style="font-family: 'Papyrus', cursive">Brian Urbina - Maximiliano Blamey</p>
+        <p style="font-family: 'Papyrus', cursive">@Copyrigth Derechos reservados.</p>
+      </div>
+    </footer> 
+    </body>
+    </html>
+        

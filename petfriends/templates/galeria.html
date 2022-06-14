@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet Shop - Galería</title>
+  <link rel="icon" href="{% static 'img/logo.png' %}">
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+   
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet"> 
+    <script src="{% static 'js/rutinas.js' %}"></script>
+    <script src="{% static 'js/dom.js' %}"></script>
+
+</head>
+<body class="body3" onload="mueveReloj()">
+  {% load static %}
+
+  <nav class="navbar navbar-expand-sm navbar-light" style="background-color: green;">
+      <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#opciones">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- logo -->
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="{% static 'img/logo.png' %}" width="40" height="40" alt="">
+      </a>
+      
+      <!-- enlaces -->
+      <div class="collapse navbar-collapse " id="opciones">   
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'index' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Inicio</h6></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'quienessomos' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Quiénes Somos</h6></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'galeria' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Galería</h6></a>         
+        </ul>
+       
+    
+      </div>
+    
+      <nav>
+        {% if user.is_authenticated %} 
+        <a href="#" style="font-size: 20px;">Bienvenid@ {{ user.username }}</a>
+        
+        <a href="{% url 'form_cliente' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Cliente</a>
+        <a href="{% url 'lista_clientes' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Clientes</a>
+        <a href="{% url 'form_producto' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Producto</a>
+        <a href="{% url 'lista_productos' %}" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Productos</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger btn-sm" style="font-size: 15px;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Cerrar Sesión</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="nav-links">Login</a>
+        <a href="{% url 'registrarse' %}" class="nav-links">Registrarse</a>
+        {% endif %}
+        <a href="{% url 'carrito' %}"><span id="carrito" class="material-icons">&#xe8cc</span></a>
+      </nav>
+    
+    </div>
+    </nav>
+
+
+      <!--contenido-->
+
+    <div class="container" style="max-width:1500px;margin-top:50px;margin-bottom:80px">
+     
+        <div class="container">   
+            <div class="row">       
+              <div class="col-md">        
+                  <div class="card text-center">
+                    <div class="card-body" style="background-color: rgb(114, 32, 82);">
+                      <img src="{% static 'img/productos/correaperro.jpg' %}"  style="width:50%">
+                      <h4 class="card-title roman" style="color: white ;">Juego de arneses y correas</h4>
+                      <hr>
+                      <p class="card-text roman" style="color: white ;">Juego de arneses y correas para mascotas de malla 
+                        suave y transpirable para perros pequeños 
+                        Chaleco de perrito Rosa Rojo Azul Negro Para 
+                        Chihuahua </p>
+                    </div>
+                  </div>          
+              </div>
+        
+              <div class="col-md">        
+                  <div class="card text-center">
+                    <div class="card-body" style="background-color: rgb(114, 32, 82);">
+                      <img src="{% static 'img/productos/rascadorgato.jpg' %}" style="width:62%">
+                      <h4 class="card-title roman" style="color: white ;">Rascador Para Gatos</h4>
+                      <hr><p class="card-text roman" style="color: white ;">es el perfecto árbol para gatos,
+                         puede proporcionar horas de diversión sin fin y también de 
+                         ejercicio, Si no estás en casa durante largos
+                          períodos de tiempo, este árbol o rascador y 
+                          todos sus extras mantendrán a tu gatito ocupado
+                           y activo. </p>
+                    </div>
+                  </div>          
+              </div>
+              
+              <div class="col-md">        
+                  <div class="card text-center">
+                    <div class="card-body" style="background-color: rgb(114, 32, 82);">
+                      <img src="{% static 'img/productos/Arenagato.png' %}" style="width:50%">
+                      <h4 class="card-title roman" style="color: white ;">Arena Para Gato</h4>
+                      <hr><p class="card-text roman" style="color: white ;">Arena sanitaria para gatos Top-K9 es perfecta
+                         para mantener nuestros ambientes limpios de desechos de mascotas 
+                         y con olores agradables, gracias a su alta calidad permite absorber
+                          en 8 segundos (aproximadamente) la orina de nuestros gatos
+                           transformándola en pequeñas bolas de arena fácil de retirar.</p>
+                    </div>
+                  </div>          
+              </div>      
+            </div>
+          </div>
+          <br>
+          <div class="container">   
+            <div class="row">       
+              <div class="col-md" >        
+                  <div class="card text-center" >
+                    <div class="card-body" style="background-color: rgb(114, 32, 82);">
+                      <img src="{% static 'img/productos/dispensador.jpg' %}"  style="width:50%">
+                      <h4 class="card-title roman" style="color: white ;" >Dispensador Doble De Alimentos Y Agua Gato Perro</h4>
+                      <hr><p class="card-text roman" style="color: white ;">Dispensador automático de agua Construido con plástico durable Diseño 
+                        moderno Fácil de lavar Gran regalo para amantes de mascotas </p>
+                    </div>
+                  </div>          
+              </div>
+        
+              <div class="col-md">        
+                  <div class="card text-center">
+                    <div class="card-body" style="background-color: rgb(114, 32, 82);">
+                      <img src="{% static 'img/productos/banoecologico.jpg' %}" style="width:62%">
+                      <h4 class="card-title roman" style="color: white ;">Baño Ecológico Para Perros Y Gatos Puppy Potty Pad</h4>
+                      <hr><p class="card-text roman" style="color: white ;">Haz que tu Perro aprenda a hacer sus necesidades en el lugar adecuado
+                         El tamaño del tapete es para perro desde pequeño hasta mediano, pero tambien 
+                         funciona para gatos. Baño para Perros es perfecto si tu mascota vive contigo 
+                         en departamento o dentro de la casa. Portatil, facil de limpiar y no toxico Material
+                          completamente lavable, por lo tanto tu mascota podra usarlo muchas veces. 
+                           </p>
+                    </div>
+                  </div>          
+              </div>
+              
+              <div class="col-md">        
+                  <div class="card text-center">
+                    <div class="card-body" style="background-color: rgb(114, 32, 82);">
+                      <img src="{% static 'img/productos/CASA PERRO.jpg' %}" style="width:50%">
+                      <h4 class="card-title roman" style="color: white ;">Casa Perro/Gato</h4>
+                      <hr><p class="card-text roman" style="color: white ;">Suave, cálido y confortable y va a todas partes
+                        ¡La casa de perros de lujo que puedes llevar contigo!
+                        Se pliega para el viaje o el almacenamiento y está completamente acolchada para una máxima comodidad </p>
+                    </div>
+                  </div>          
+              </div>      
+            </div>
+          </div>
+    
+    
+    
+    </div>
+
+    <footer style="background: green; width: 100%; padding: 15px; text-align: center;">
+      <br><br>
+      <div class="grupo1">
+      <form name="form_reloj">
+          <input type="text" name="reloj" size="10" style="color: white ; background-color: green; text-align:center;">
+          </form>
+      <br>
+        <div class="container">
+          <a href="https://web.facebook.com/FundacionHuellaAnimalChile/?_rdc=1&_rdr" target="blank_" ><img src="{% static 'img/facebook.png' %}" style="max-width: 30px;"></i></a>
+          <a href="https://www.instagram.com/fundacionhuellaanimalchile/?hl=es" target="blank_"><img src="{% static 'img/instagram.png' %}" style="max-width: 30px;"></a>
+        </div>
+        <p style="font-family: 'Papyrus', cursive">Brian Urbina - Maximiliano Blamey</p>
+        <p style="font-family: 'Papyrus', cursive">@Copyrigth Derechos reservados.</p>
+      </div>
+    </footer> 
+</body>
+</html>
+    
+    

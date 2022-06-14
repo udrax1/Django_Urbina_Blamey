@@ -1,0 +1,198 @@
+.roman{
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.clase{
+    text-align: right;
+}
+.body2{ background-image: url(https://img.freepik.com/vector-gratis/huella-pata-fondo-patron-corazon_1017-36754.jpg?w=2000);
+  }
+.body3{ background-color: #ff64ea;
+  }
+
+
+#caja{
+  width: 300px;
+  border: 15px solid rgb(161, 211, 161);
+  padding: 20px;
+  margin: 20px;
+}
+.colorletra{
+  color:rgb(1, 132, 255);
+}
+
+.video-youtube{ 
+  height: 0px;
+  padding-bottom: 56.25%;
+  position:relative;
+}
+.video-youtube iframe{
+  position:absolute;
+  top: 0;
+  left: 0; 
+  height: 100%;
+  width: 100%;
+}
+
+.youtube-wrapper{
+  width: 75%;
+  margin: auto;
+}
+.centrar{
+  text-align: justify;
+}
+
+#map {
+	height: 300px;
+	width: 100%;
+
+}
+
+.caja2{
+  width: 200px;
+  border: 15px solid rgb(1, 132, 255);
+  background-color: rgb(217, 215, 223);
+}
+.caja3{
+  width: 350px;
+  border: 15px solid rgb(1, 132, 255);
+  background-color: rgb(217, 215, 223);
+}
+
+/*dsafdsfa*/
+#marcas{
+  position: relative;
+  right: -6cm;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+  background-color: #6919b9;
+  align-items: center;
+
+}
+
+.summary{
+  display: block;
+margin-left: auto;
+margin-right: auto;
+width: 50%;
+text-align: center;
+font-weight: 500;
+}.summary button{
+  text-decoration: none;
+  background-color: #2a33af;
+  color: white;
+  margin-bottom: 10px;
+}.summary button:hover{
+  color:white;
+  height: 39px;
+  transition: 1s;
+  font-size: 19px;
+}.summary div{
+  margin-bottom: 15px;
+}
+#carrito{
+  position: fixed;
+  top: 15px;
+  right: 0.5%;
+}
+
+#mascotitas{
+  font-size: 25px;
+  text-decoration: none;
+  color: #f3f2f2;
+  font-family: 'Bungee Shade', cursive;
+
+}
+.logo{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#royal{
+  height: 100px;
+}
+
+#webpay{
+  height: 80px;
+  width: 180px;
+  
+}
+#redes{
+  display: flex;
+  float: right;
+}
+#copy{
+  text-align: center;
+  color: rgb(229, 210, 210);
+  position: relative; bottom: 15px; right: -100px;
+}
+#links a{
+  text-decoration: none;
+  color: rgb(225, 192, 46);
+  font-weight: 900;
+  font-size: 22px;
+  font-family: cursive;   
+  position:relative;
+  right: 0cm;
+}#links a:hover{
+  transition: 1s;
+  color: black;
+  font-size: 25px;
+}
+
+
+nav a{
+  text-decoration: none;
+  color: #f3f2f2;
+  font-size: 20px;
+  padding-right: 20px;
+  font-family: cursive;
+  font-weight: 800;
+
+}nav a:hover{
+  transition: 1s;
+  color:purple;
+  font-size: 30px;
+}
+.nav-2{
+  display: flex;
+  justify-content: center;
+  background-color: #4c3195;
+  height: 80px;
+  align-items: center;
+  margin-bottom: 50px;
+
+}
+
+
+
+#mapagoogle{
+
+  left: 11cm;
+}
+
+.center{
+  display: block;
+margin-left: auto;
+margin-right: auto;
+width: 55%;
+}
+
+
+/*Responsive*/
+@media (max-width:700px){
+  header a{
+      font-size: 12px;
+  }header a:hover{
+      font-size: 12px;
+      color: white;
+  }
+  #carrito{
+      position: fixed;
+      top: 10px;
+      right: 0.5%;
+  }
+}
