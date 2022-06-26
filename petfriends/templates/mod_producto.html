@@ -66,8 +66,8 @@
            rules: {
                 idProducto: "required",
                 nombre: "required",
-                precio: "required",
-                stock: "required"
+                precio: {required:true, min:0},
+                stock: {required:true, min:0},
                   },   
                   
              messages: 
@@ -77,13 +77,15 @@
                 },
                 nombre: {
                   required: 'Ingresa un nombre',
-              },
+              }, 
                 precio:{
                   required: 'Ingrese un precio',
+                  min: 'El precio no puede ser negativo',
                   
               },
                 stock:{
                   required: 'ingresa un stock',
+                  min: 'El stock no puede ser negativo',
               }       
           } 
       }); 

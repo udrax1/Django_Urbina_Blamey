@@ -62,10 +62,12 @@ class ClienteForm(forms.ModelForm):
 
     class Meta: 
         model= Cliente
-        fields = ['rut', 'nombreCliente', 'direccion', 'region', 'imagenCli']
+        fields = ['rut', 'nombreCliente', 'correo','telefono','direccion', 'region', 'imagenCli']
         labels ={
             'rut': 'Rut:', 
             'nombreCliente': 'Nombre Cliente:', 
+            'correo': 'Email: ',
+            'telefono': 'Teléfono',
             'direccion': 'Dirección:', 
             'region': 'Región:',
             'imagenCli': 'Imagen:',
@@ -85,13 +87,29 @@ class ClienteForm(forms.ModelForm):
                     'id': 'nombreCliente'
                 }
             ), 
+            'correo': forms.EmailInput(
+                attrs={
+                    'class': 'form-control', 
+                    'placeholder': 'Ingrese su correo', 
+                    'id': 'correo'
+                }
+            ) 
+            ,
+            'telefono': forms.NumberInput(
+                attrs={
+                    'class': 'form-control', 
+                    'placeholder': 'Ingrese su Telefono', 
+                    'id': 'telefono'
+                }
+            )
+            ,
             'direccion': forms.TextInput(
                 attrs={
                     'class': 'form-control', 
                     'placeholder': 'Ingrese su Dirección', 
                     'id': 'direccion'
                 }
-            ), 
+            ),
             'region': forms.Select(
                 attrs={
                     'class': 'form-control',  

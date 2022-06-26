@@ -26,6 +26,8 @@ class Region(models.Model):
 class Cliente(models.Model):
     rut= models.CharField(primary_key=True, max_length=9, verbose_name='Rut')
     nombreCliente= models.CharField(max_length=50, verbose_name='Nombre cliente')
+    correo= models.EmailField(verbose_name='E-mail', null=True)
+    telefono= models.IntegerField(verbose_name='teléfono:', null=True)
     direccion= models.CharField(max_length=100, verbose_name='Direccion')
     region= models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name='Region')
     imagenCli= models.ImageField(upload_to="clientes")

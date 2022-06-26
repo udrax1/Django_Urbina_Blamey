@@ -3,10 +3,10 @@ from .views import index, carrito, galeria, quienessomos, registrarse, form_prod
 
 urlpatterns = [
     path('', index, name="index"),#el primer html que mostrara
-    path('/carrito', carrito, name="carrito"),
-    path('/galeria', galeria, name="galeria"),
-    path('/quienessomos', quienessomos, name="quienessomos"),
-    path('/registrarse', registrarse, name="registrarse"),
+    path('carrito', carrito, name="carrito"),
+    path('galeria', galeria, name="galeria"),
+    path('quienessomos', quienessomos, name="quienessomos"),
+    path('registrarse', registrarse, name="registrarse"),
     path('form_producto/', form_producto, name="form_producto"),
     path('lista_productos/', lista_productos, name="lista_productos"),
     path('form_cliente/', form_cliente, name="form_cliente"),

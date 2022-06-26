@@ -56,8 +56,8 @@
                rules: {
                       idProducto: "required",
                       nombre: "required",
-                      precio: "required",
-                      stock: "required",
+                      precio: {required:true, min:0},
+                      stock: {required:true, min:0},
                       imagenPro: "required",
                       },   
                       
@@ -71,10 +71,12 @@
                   },
                   precio:{
                       required: 'Ingrese el precio',
+                      min: 'El precio no puede ser negativo',
                       
                   },
                   stock:{
                       required: 'Ingresa un stock',
+                      min: 'El stock no puede ser negativo',
                   },
                   imagenPro:{
                       required: 'Debes cargar una imagen',

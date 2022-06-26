@@ -56,9 +56,12 @@
                rules: {
                     rut: "required",
                     nombreCliente: "required",
+                    correo: {email:true, required:true},
+                    telefono: {min:0, required:true},
                     direccion: "required",
                     region: "required",
                     imagenCli: "required",
+                    
                       },   
                       
                  messages: 
@@ -69,6 +72,8 @@
                     nombreCliente: {
                       required: 'Ingresa un nombre',
                   },
+                    correo:{ email:'El formato de correo es incorrecto',required: 'Ingrese un correo'},
+                    telefono:{min:'El telefono no puede ser un numero negativo', required:'Ingrese un telefono'},
                     direccion:{
                       required: 'Ingrese una dirección',
                       
@@ -150,7 +155,16 @@
                             {{cliente_form.nombreCliente.label}}
                             {{cliente_form.nombreCliente}}
                         </div>
-                        
+
+                        <div class="form-group">
+                          {{cliente_form.correo.label}}
+                          {{cliente_form.correo}}
+                      </div>
+                      
+                      <div class="form-group">
+                        {{cliente_form.telefono.label}}
+                        {{cliente_form.telefono}}
+                    </div>
                         <div class="form-group">
                             {{cliente_form.direccion.label}}
                             {{cliente_form.direccion}}
