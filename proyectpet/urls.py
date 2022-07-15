@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('petfriends.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/', include('rest_clientes.urls')),
+    path('api/', include('rest_ventas.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

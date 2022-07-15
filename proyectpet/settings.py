@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE=True
+SESSION_EXPIRE_AT_BROWSER_CLOSE= True
+
 #Para activar alertas
 MESSAGE_STORAGE= "django.contrib.messages.storage.cookie.CookieStorage"
 # Application definition
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'petfriends',
     'rest_clientes',
+    'rest_ventas',
     
 ]
 CRISPY_TEMPLATE_PACK='bootstrap4'
@@ -73,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'petfriends.context_processor.total_carrito',
             ],
         },
     },
@@ -86,8 +92,15 @@ WSGI_APPLICATION = 'proyectpet.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': '127.0.0.1:1521/xe',
+        'USER' : 'admin1',
+        'PASSWORD' : 'hola1234',
+        'TEST' : {
+            'USER': 'default_test',
+            'TBLSPACE': 'default_test_tbls',
+            'TBLSPACE_TMP': 'default_test_tbls_tmp',
+        },
     }
 }
 
@@ -137,3 +150,4 @@ import os
 STATIC_URL = '/static/'
 MEDIA_URL='/media/'
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+

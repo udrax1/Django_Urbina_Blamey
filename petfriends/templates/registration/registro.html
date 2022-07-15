@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Shop - Registro</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+     <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet"> 
+    <script src="{% static 'js/rutinas.js' %}"></script>
+    <style>
+        label {
+            clear: both;
+            float: left;
+            width: 180px;
+        }
+        
+        .error-control {
+            border: 1px solid red;
+        }
+        
+        label.error {
+            color: red;
+            width: 300px;
+            font-size: 0.8em;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+    </style>
+    <script>
+    $(function() 
+    {
+    $("#mi-formulario").validate({
+       rules: {
+              username: {
+                  required: true,
+                  minlength: 5
+              },
+              first_name: {
+                required: true,
+                minlength: 2
+              },
+              last_name:{
+                required: true,
+                minlength: 2
+              },
+              email: {
+                email: true,
+                required: true
+              },
+              password1 : {
+                required:true,
+                minlength:8
+              }
+              ,
+              password2: {required:true,
+                        minlength:8}
+              
+          }, //rules
+      messages: {
+        username: {
+                    required: "Debe ingresar un username",
+                    minlength: "El username es demasiado corto"
+                },
+                first_name: {
+                    required: "Ingrese su nombre",
+                    minlength: "El nombre es demasiado corto"
+                },
+                last_name:{
+                    required: "Ingrese su apellido",
+                    minlength: "El apellido es demasiado corto"
+                },
+                email: {
+                    email: "Ingrese un formato de e-mail correcto",
+                    required: "Ingrese su correo"
+                },
+                password1 : {
+                    required:"Ingrese su contraseña",
+                    minlength:"Contraseña demasiado corta"
+                }
+                ,
+                password2: {
+                    required:"Repita su contraseña",
+                    minlength:"Contraseña demasiado corta"}
+        }//messages
+    }); //$('#mi-formulario').validate
+    });
+    </script>
+    <body class="body3" onload="mueveReloj()">
+        
+      {% load static %}
+
+      {% if messages %}
+        {% for m in messages %}
+        <script>
+          Swal.fire({
+            "title":"Felicitaciones",
+            "text": "{{m}}",
+            "icon": "success"
+          })
+        </script>
+        {% endfor %}
+        {% endif %}
+
+        <nav class="navbar navbar-expand-sm navbar-light" style="background-color: green;">
+          <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#opciones">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <!-- logo -->
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'img/logo.png' %}" width="40" height="40" alt="">
+          </a>
+          
+          <!-- enlaces -->
+          <div class="collapse navbar-collapse " id="opciones">   
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'index' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Inicio</h6></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'quienessomos' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Quiénes Somos</h6></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'tienda' %}"><h6 onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Tienda</h6></a>         
+            </ul>
+           
+        
+          </div>
+        
+          <nav>
+            {% if user.is_authenticated %} 
+            <a href="#" style="font-size: 20px; color: white;">Bienvenid@ {{ user.username }}</a>
+            <a href="{% url 'historial' %}" style="font-size: 15px; color: white;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Historial de compras</a>
+            {% if perms.app.add_cliente %}
+            <a href="{% url 'form_cliente' %}" style="font-size: 15px; color: white;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Cliente</a>
+            {% endif %}
+    
+            {% if perms.app.view_cliente %}
+            <a href="{% url 'lista_clientes' %}" style="font-size: 15px;color: white;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Clientes</a>
+            {% endif %}
+    
+            {% if perms.app.add_producto %}
+            <a href="{% url 'form_producto' %}" style="font-size: 15px;color: white;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Registrar Producto</a>
+            {% endif %}
+    
+            {% if perms.app.view_producto %}
+            <a href="{% url 'lista_productos' %}" style="font-size: 15px;color: white;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Mostrar Productos</a>
+            {% endif %}
+            <a href="{% url 'logout' %}" class="btn btn-danger btn-sm" style="font-size: 15px;color: white;" onmouseover="style.color = 'purple'" onmouseout="style.color= 'white'">Cerrar Sesión</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="nav-links">Login</a>
+            <a href="{% url 'registro' %}" class="nav-links">Registrarse</a>
+            {% endif %}
+            <a href="{% url 'carrito' %}" style="color: white;text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;"><span id="carrito" class="material-icons">&#xe8cc</span></a>
+          </nav>
+        
+        </div>
+        </nav>
+        
+        </div>
+        </nav>
+    {% load crispy_forms_tags %}
+    <br><br><br><br><br><br>
+    <div class="container-md" style="background-color: rgb(114, 32, 82); border:solid 15px green">
+                        <h2 style="color:white">Registro de usuario</h2>
+                        <hr>
+
+                        <form action="#" method="POST" id="mi-formulario" style="color:white">
+                                {% csrf_token %}
+
+                                {{ form | crispy }}
+
+                            <div class="form-group">
+                                  {{cliente_form.rut.label}}
+                                  {{cliente_form.rut}}
+                            </div>
+               
+                            <div class="form-group">
+                                  {{cliente_form.nombreCliente.label}}
+                                  {{cliente_form.nombreCliente}}
+                            </div>
+      
+                            <div class="form-group">
+                                {{cliente_form.correo.label}}
+                                {{cliente_form.correo}}
+                            </div>
+                            
+                            <div class="form-group">
+                              {{cliente_form.telefono.label}}
+                              {{cliente_form.telefono}}
+                            </div>
+                              <div class="form-group">
+                                  {{cliente_form.direccion.label}}
+                                  {{cliente_form.direccion}}
+                              </div>
+                              
+                              <div class="form-group">
+                                  {{cliente_form.region.label}}
+                                  {{cliente_form.region}}
+                              </div>
+      
+                              
+                              <div class="custom-file">
+                                  {{cliente_form.imagenCli.label}}<br>
+                                  {{cliente_form.imagenCli}}
+                              </div>
+                            <hr>
+                            
+                            <a href="{% url 'login' %}" class="btn btn-info">Iniciar Sesion</a>
+                            <input type="submit" value="Registrar" class="btn btn-success" style="float:right;">
+                        </form>
+                <br>
+    </div>
+    <br><br><br><br><br><br><br>
+    <footer style="background: green; width: 100%; padding: 15px; text-align: center;">
+        <br><br>
+        <div class="grupo1">
+        <form name="form_reloj">
+            <input type="text" name="reloj" size="10" style="color: white ; background-color: green; text-align:center;">
+            </form>
+        <br>
+          <div class="container">
+            <a href="https://web.facebook.com/FundacionHuellaAnimalChile/?_rdc=1&_rdr" target="blank_" ><img src="{% static 'img/facebook.png' %}" style="max-width: 30px;"></i></a>
+            <a href="https://www.instagram.com/fundacionhuellaanimalchile/?hl=es" target="blank_"><img src="{% static 'img/instagram.png' %}" style="max-width: 30px;"></a>
+          </div>
+          <p style="font-family: 'Papyrus', cursive">Brian Urbina - Maximiliano Blamey</p>
+          <p style="font-family: 'Papyrus', cursive">@Copyrigth Derechos reservados.</p>
+        </div>
+      </footer> 
+</body>
+</html>

@@ -3,8 +3,9 @@ from django.forms import ModelForm
 from django.forms import widgets
 from django.forms.models import ModelChoiceField
 from django.forms.widgets import Widget
-from .models import Producto, Cliente, Region
-
+from .models import Producto, Cliente, Venta
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class ProductoForm(forms.ModelForm):
 
@@ -76,7 +77,7 @@ class ClienteForm(forms.ModelForm):
             'rut': forms.TextInput(
                 attrs={
                     'class': 'form-control', 
-                    'placeholder': 'Ingrese el Rut', 
+                    'placeholder': 'Sin puntos ni guion', 
                     'id': 'rut'
                 }
             ), 
@@ -126,6 +127,76 @@ class ClienteForm(forms.ModelForm):
             )
 
         }
-    
-     
 
+class ventaForm(forms.ModelForm):
+    class Meta:
+        model= Venta
+        fields = ['id_venta', 'cliente_rut', 'total','fecha','estado']
+        labels ={
+            'id_venta': 'Id Venta:', 
+            'cliente_rut': 'Rut:', 
+            'total': 'total: ',
+            'fecha': 'Fecha venta:',
+            'estado': 'Estado de compra:', 
+        }
+        widgets={
+            'id_venta': forms.TextInput(
+            attrs={
+                    'class': 'form-control', 
+                    'placeholder': 'id venta', 
+                    'id': 'id_venta'
+            }
+            ), 
+            'cliente_rut': forms.TextInput(
+            attrs={
+                    'class': 'form-control', 
+                    'placeholder': 'Ingrese su rut', 
+                    'id': 'cliente_rut'
+                }
+            ), 
+            'total': forms.NumberInput(
+                attrs={
+                    'class': 'form-control', 
+                    'placeholder': 'Ingrese el total', 
+                    'id': 'total'
+                }
+            ) 
+            ,
+            'fecha': forms.DateInput(
+                attrs={
+                    'type': 'date',
+                    'value': '2022-07-2022',
+                    'class': 'form-control', 
+                    'id': 'fecha'
+                }
+            )
+            ,
+            'estado': forms.Select(
+                attrs={
+                    'class': 'form-control',  
+                    'id': 'estado'
+                }
+            )
+        }
+
+class CustomUserCreationForm(UserCreationForm):
+    
+    class Meta:
+        model = User
+        fields = ["username", "first_name", "last_name", "email", "password1", "password2"]
+        labels ={
+            'username': 'username:', 
+            'first_name': 'Nombre:', 
+            'last_name': 'Apellidos: ',
+            'email': 'Correo electronico:',
+            'password1': 'Ingrese su contraseña:', 
+            'password2': 'Repita su contraseña:',
+        }
+
+PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 21)]
+
+class CartAddProductForm(forms.Form):
+    cantidad = forms.TypedChoiceField(choices=PRODUCT_QUANTITY_CHOICES,
+        coerce=int)
+    actualizar = forms.BooleanField(required=False, initial=False,
+                                widget=forms.HiddenInput)
